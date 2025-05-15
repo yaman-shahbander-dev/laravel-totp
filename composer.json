@@ -1,0 +1,36 @@
+{
+    "name": "laravel/totp-generator",
+    "description": "A PHP implementation of Time-Based One-Time Password (TOTP), using Base32 encoding and HMAC hashing. Generates and verifies OTPs for secure authentication.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "TotpGenerator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yaman Shahbandar",
+            "email": "yaman.engineer.dev@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2|^8.0",
+        "laravel/framework": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0|^11.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TotpGenerator\\Providers\\TotpServiceProvider"
+            ],
+            "aliases": {
+                "Totp": "TotpGenerator\\Facades\\Totp"
+            }
+        }
+    },
+    "prefer-stable": true
+}
