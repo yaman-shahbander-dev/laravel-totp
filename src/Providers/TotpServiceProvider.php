@@ -26,7 +26,7 @@ class TotpServiceProvider extends ServiceProvider
 
         // Load the configuration file
         $this->mergeConfigFrom(
-            __DIR__ . '/../Config/totp.php', 'totp'
+            __DIR__ . '/../../config/totp.php', 'totp'
         );
     }
 
@@ -39,7 +39,7 @@ class TotpServiceProvider extends ServiceProvider
     {
         // Publish the configuration file
          $this->publishes([
-            __DIR__ . '/../Config/totp.php' => config_path('totp.php'),
+            __DIR__ . '/../../config/totp.php' => config_path('totp.php'),
         ], 'config');
     }
 }
