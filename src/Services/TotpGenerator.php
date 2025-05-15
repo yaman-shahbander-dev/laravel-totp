@@ -54,7 +54,43 @@ class TotpGenerator implements TotpGeneratorContract
         return false;
     }
 
-    protected function decodeBase32(string $base32): string
+    public function encodeBase32(string $binary): string
+    {
+        $base32 = '';
+        $count = 0;
+        $buffer = 0;
+        $bufferSize = 0;
+
+        foreach (str_split($binary) as $char) {
+            $buffer <<= 8;
+            $buffer |= ord($char);
+            $bufferSize += 8;
+
+            while ($bufferSize >= 5) {
+                $bufferSize -= 5;
+                $index = ($buffer >> $bufferSize) & 0x1F;
+                $base32 .= self::BASE32_ALPHABET[$index];
+                $count++;
+            }
+        }
+
+        if ($bufferSize > 0) {
+            $buffer <<= (5 - $bufferSize);
+            $index = $buffer & 0x1F;
+            $base32 .= self::BASE32_ALPHABET[$index];
+            $count++;
+        }
+
+        // Add padding
+        $padding = $count % 8;
+        if ($padding > 0) {
+            $base32 .= str_repeat('=', 8 - $padding);
+        }
+
+        return $base32;
+    }
+
+    public function decodeBase32(string $base32): string
     {
         $base32 = Str::upper(trim($base32));
         
